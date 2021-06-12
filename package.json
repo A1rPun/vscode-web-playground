@@ -1,0 +1,44 @@
+{
+  "name": "vscode-web-playground",
+  "description": "Fiddle around with web tech in VSCode!",
+  "version": "0.1.0",
+  "author": "A1rPun",
+  "publisher": "A1rPun",
+  "engines": {
+    "vscode": "^1.32.0"
+  },
+  "activationEvents": [
+    "onCommand:extension.webplayground",
+    "onCommand:extension.webplaygroundclose"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.webplayground",
+        "title": "Web Playground"
+      },
+      {
+        "command": "extension.webplaygroundclose",
+        "title": "Close Web Playground"
+      }
+    ]
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@types/vscode": "^1.32.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A1rPun/vscode-web-playground.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/A1rPun/vscode-web-playground/issues"
+  },
+  "homepage": "https://github.com/A1rPun/vscode-web-playground#readme",
+  "dependencies": {
+    "hamljs": "^0.6.2",
+    "sass": "^1.34.1"
+  }
+}
