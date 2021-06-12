@@ -8,7 +8,9 @@
 
 - `Ctrl` + `Shift` + `P`
 - `webplayground`
-- "View" -> "Editor Layout" -> Grid (2x2)
+
+**Optional steps**
+
 - `Ctrl` + `b` to hide sidebar
 
 ## Debug
@@ -54,7 +56,6 @@ Making use of the built-in webview which renders the following HTML
 
 ## TODO
 
-- Start with 2x2 grid.
 - haml/ts
 - libraries
 - Export to jsfiddle/codepen/jsbin

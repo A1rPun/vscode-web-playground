@@ -66,7 +66,10 @@ async function createDocuments() {
     );
   }
 
-  Promise.allSettled(docs).then(updateWebView);
+  Promise.allSettled(docs).then(() => {
+    vscode.commands.executeCommand('workbench.action.editorLayoutTwoByTwoGrid');
+    updateWebView();
+  });
   vscode.workspace.onDidChangeTextDocument(updateWebView);
 }
 
@@ -106,7 +109,6 @@ function createTextDocument(language, content = '') {
 function updateWebView() {
   const theHtml = htmlDocument.getText();
   const theCss = sass.renderSync({ data: cssDocument.getText() }).css;
-  console.log(theCss.toString())
   currentPanel.webview.html = `<!DOCTYPE html>
 <html lang="en">
   <head>
