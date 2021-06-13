@@ -2,6 +2,10 @@
 
 > Fiddle around with web tech in VSCode!
 
+- CSS / SCSS
+- HTML
+- JavaScript
+
 ![Example usage](example.png)
 
 ## Usage
@@ -12,6 +16,7 @@
 **Optional steps**
 
 - `Ctrl` + `b` to hide sidebar
+- `webplaygroundclose` to free the extension
 
 ## Debug
 
@@ -57,7 +62,5 @@ Making use of the built-in webview which renders the following HTML
 ## TODO
 
 - haml/ts
-- libraries
+- libraries (vue/angular/react/bootstrap)
 - Export to jsfiddle/codepen/jsbin
-- build HTML on save?
-- keep state (temp files?)
