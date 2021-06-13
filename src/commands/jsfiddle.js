@@ -1,10 +1,10 @@
 const vscode = require('vscode');
 const editors = require('./../editors.js');
 const postUrl = require('./../postUrl.js');
+const { jsFiddleUrl } = require('./../contants.js');
 
 async function toJsFiddle() {
-  const hostName = 'http://jsfiddle.net/api/post/library/pure/';
-  const url = postUrl(hostName, {
+  const url = postUrl(jsFiddleUrl, {
     css: escape(editors.getCss()),
     js: escape(editors.getJs()),
     html: escape(editors.getHtml()),

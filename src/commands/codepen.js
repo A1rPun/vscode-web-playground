@@ -1,10 +1,10 @@
 const vscode = require('vscode');
 const editors = require('./../editors.js');
 const postUrl = require('./../postUrl.js');
+const { codePenUrl } = require('./../contants.js');
 
 async function toCodePen() {
-  const hostName = 'https://codepen.io/pen/define/';
-  const url = postUrl(hostName, {
+  const url = postUrl(codePenUrl, {
     data: JSON.stringify({
       css: editors.getCss(),
       js: editors.getJs(),

@@ -11,12 +11,17 @@
 ## Usage
 
 - `Ctrl` + `Shift` + `P`
+
+**Commands**
+
 - `webplayground`
+- `webplaygroundclose`
+- `webplaygroundjsfiddle`
+- `webplaygroundcodepen`
 
 **Optional steps**
 
 - `Ctrl` + `b` to hide sidebar
-- `webplaygroundclose` to free the extension
 
 ## Debug
 
