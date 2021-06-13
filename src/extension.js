@@ -5,6 +5,7 @@ let currentPanel = undefined;
 let htmlDocument = undefined;
 let cssDocument = undefined;
 let javascriptDocument = undefined;
+let timeout = undefined;
 const viewColumn = vscode.ViewColumn.Beside;
 
 /**
@@ -29,13 +30,12 @@ function main() {
 }
 
 function closeAll() {
-  if (currentPanel) {
-    currentPanel.dispose();
-    currentPanel = undefined;
-  }
+  if (currentPanel) currentPanel.dispose();
   if (htmlDocument) htmlDocument = undefined;
   if (cssDocument) cssDocument = undefined;
   if (javascriptDocument) javascriptDocument = undefined;
+
+  vscode.commands.executeCommand('workbench.action.editorLayoutSingle');
   vscode.window.showInformationMessage('Successfully Closed Web Playground!');
 }
 
@@ -70,7 +70,10 @@ async function createDocuments() {
     vscode.commands.executeCommand('workbench.action.editorLayoutTwoByTwoGrid');
     updateWebView();
   });
-  vscode.workspace.onDidChangeTextDocument(updateWebView);
+  vscode.workspace.onDidChangeTextDocument(() => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(updateWebView, 500);
+  });
 }
 
 function showWebPlayground() {
@@ -107,19 +110,18 @@ function createTextDocument(language, content = '') {
 }
 
 function updateWebView() {
-  const theHtml = htmlDocument.getText();
-  const theCss = sass.renderSync({ data: cssDocument.getText() }).css;
+  const scss = sass.renderSync({ data: cssDocument.getText() }).css;
   currentPanel.webview.html = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      ${theCss}
+      ${scss}
     </style>
   </head>
   <body>
-    ${theHtml}
+    ${htmlDocument.getText()}
     <script type="text/javascript">
       ${javascriptDocument.getText()}
     </script>
@@ -127,9 +129,4 @@ function updateWebView() {
 </html>`;
 }
 
-function deactivate() {}
-
-module.exports = {
-  activate,
-  deactivate,
-};
+module.exports = { activate };
