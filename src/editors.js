@@ -5,10 +5,11 @@ const sass = require('sass');
 const viewColumn = vscode.ViewColumn.Beside;
 
 module.exports = {
-  web: undefined,
-  html: undefined,
-  scss: undefined,
-  javascript: undefined,
+  web: null,
+  html: null,
+  scss: null,
+  javascript: null,
+  changeHandle: null,
   getHtml() {
     return this.html.getText();
   },
@@ -58,16 +59,27 @@ module.exports = {
       })
       .then((editor) => (this[language] = editor.document));
   },
+  setChangeHandler() {
+    if (this.changeHandle) return;
+
+    let timeout = undefined;
+    this.changeHandle = vscode.workspace.onDidChangeTextDocument(() => {
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => this.update(), 500);
+    });
+  },
   async init() {
     this.createWeb();
     await this.create('html');
     await this.create('scss');
     await this.create('javascript');
+    this.setChangeHandler();
   },
   close() {
     if (this.web) this.web.dispose();
     this.html = undefined;
     this.scss = undefined;
     this.javascript = undefined;
+    if (this.changeHandle) this.changeHandle.dispose();
   },
 };
