@@ -14,11 +14,21 @@ const viewColumn = vscode.ViewColumn.Beside;
 function activate(context) {
   const wpg = vscode.commands.registerCommand('extension.webplayground', main);
   context.subscriptions.push(wpg);
-  const cwpg = vscode.commands.registerCommand(
+  const wpgc = vscode.commands.registerCommand(
     'extension.webplaygroundclose',
     closeAll
   );
-  context.subscriptions.push(cwpg);
+  context.subscriptions.push(wpgc);
+  const wpgfiddle = vscode.commands.registerCommand(
+    'extension.webplaygroundjsfiddle',
+    toJsFiddle
+  );
+  context.subscriptions.push(wpgfiddle);
+  const wpgcodepen = vscode.commands.registerCommand(
+    'extension.webplaygroundcodepen',
+    toCodePen
+  );
+  context.subscriptions.push(wpgcodepen);
 }
 
 function main() {
@@ -37,6 +47,39 @@ function closeAll() {
 
   vscode.commands.executeCommand('workbench.action.editorLayoutSingle');
   vscode.window.showInformationMessage('Successfully Closed Web Playground!');
+}
+
+function makePostUrl(hostName, fields = {}) {
+  const url = `data:text/html,<body onload='document.body.firstChild.submit()'><form method='post' action='${hostName}'>`;
+  return Object.entries(fields).reduce((acc, cur) => {
+    return acc + `<input type='hidden' name='${cur[0]}' value='${cur[1]}'>`;
+  }, url);
+}
+
+async function toJsFiddle() {
+  const hostName = 'http://jsfiddle.net/api/post/library/pure/';
+  const url = makePostUrl(hostName, {
+    css: escape(getCss()),
+    js: escape(javascriptDocument.getText()),
+    html: escape(htmlDocument.getText()),
+    panel_css: 1,
+  });
+  vscode.env.openExternal(url);
+  vscode.window.showInformationMessage('Successfully Exported to JsFiddle!');
+}
+
+async function toCodePen() {
+  const hostName = 'https://codepen.io/pen/define/';
+  const url = makePostUrl(hostName, {
+    data: JSON.stringify({
+      css: getCss(),
+      js: javascriptDocument.getText(),
+      html: htmlDocument.getText(),
+      css_pre_processor: 'scss',
+    }),
+  });
+  vscode.env.openExternal(url);
+  vscode.window.showInformationMessage('Successfully Exported to CodePen!');
 }
 
 async function createDocuments() {
@@ -109,8 +152,11 @@ function createTextDocument(language, content = '') {
     .then((editor) => editor.document);
 }
 
+function getCss() {
+  return sass.renderSync({ data: cssDocument.getText() }).css.toString();
+}
+
 function updateWebView() {
-  const scss = sass.renderSync({ data: cssDocument.getText() }).css;
   currentPanel.webview.html = `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -132,7 +178,7 @@ function updateWebView() {
       #vscode_web_playground_console.hide {
         display: none;
       }
-      ${scss}
+      ${getCss()}
     </style>
   </head>
   <body>

@@ -9,7 +9,9 @@
   },
   "activationEvents": [
     "onCommand:extension.webplayground",
-    "onCommand:extension.webplaygroundclose"
+    "onCommand:extension.webplaygroundclose",
+    "onCommand:extension.webplaygroundjsfiddle",
+    "onCommand:extension.webplaygroundcodepen"
   ],
   "main": "./src/extension.js",
   "contributes": {
@@ -20,7 +22,15 @@
       },
       {
         "command": "extension.webplaygroundclose",
-        "title": "Close Web Playground"
+        "title": "Web Playground - Close"
+      },
+      {
+        "command": "extension.webplaygroundjsfiddle",
+        "title": "Web Playground - Export to JsFiddle"
+      },
+      {
+        "command": "extension.webplaygroundcodepen",
+        "title": "Web Playground - Export to CodePen"
       }
     ]
   },

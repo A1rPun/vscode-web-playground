@@ -33,6 +33,12 @@ $ code --install-extension vscode-web-playground-{version}.vsix
 
 ### Uninstall
 
+```
+$ code --uninstall-extension vscode-web-playground-{version}.vsix
+```
+
+Or
+
 - `Ctrl` + `Shift` + `X`
 - Search and uninstall
 
@@ -59,8 +65,18 @@ Making use of the built-in webview which renders the following HTML
 </html>
 ```
 
+## Export
+
+Limited functionality.
+Can only handle code without the single quote `'` character.
+Can only handle code less than 1900 characters.
+
+- [JsFiddle](https://docs.jsfiddle.net/api/display-a-fiddle-from-post)
+- [CodePen](https://blog.codepen.io/documentation/prefill/)
+- <s>[JsBin](https://jsbin.com/help/api/) (need token)</s>
+
 ## TODO
 
+- Better export
 - haml/ts
 - libraries (vue/angular/react/bootstrap)
-- Export to jsfiddle/codepen/jsbin
