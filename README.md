@@ -84,4 +84,4 @@ Can only handle code less than 1900 characters.
 
 - Better export
 - haml/ts
-- libraries (vue/angular/react/bootstrap)
+- Prettify code

@@ -9,6 +9,7 @@ module.exports = {
   html: null,
   scss: null,
   javascript: null,
+  library: null,
   changeHandle: null,
   getHtml() {
     return this.html.getText();
@@ -19,12 +20,20 @@ module.exports = {
   getJs() {
     return this.javascript.getText();
   },
+  getLibraryCss() {
+    return this.library?.css ?? '';
+  },
+  getLibraryJs() {
+    return this.library?.javascript ?? '';
+  },
   update() {
     if (!this.web) return;
     this.web.webview.html = getWebViewHtml(
       this.getHtml(),
       this.getCss(),
-      this.getJs()
+      this.getJs(),
+      this.getLibraryCss(),
+      this.getLibraryJs()
     );
   },
   createWeb() {
@@ -68,6 +77,9 @@ module.exports = {
       timeout = setTimeout(() => this.update(), 500);
     });
   },
+  setLibrary(library) {
+    this.library = library;
+  },
   async init() {
     this.createWeb();
     await this.create('html');
@@ -77,9 +89,10 @@ module.exports = {
   },
   close() {
     if (this.web) this.web.dispose();
-    this.html = undefined;
-    this.scss = undefined;
-    this.javascript = undefined;
+    this.html = null;
+    this.scss = null;
+    this.javascript = null;
+    this.library = null;
     if (this.changeHandle) this.changeHandle.dispose();
   },
 };

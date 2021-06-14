@@ -1,8 +1,15 @@
-module.exports = (html, css, js) => `<!DOCTYPE html>
+module.exports = (
+  html,
+  css,
+  js,
+  libraryCss,
+  libraryJs
+) => `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    ${libraryCss}
     <style>
       #vscode_web_playground_console {
         position: fixed;
@@ -25,6 +32,7 @@ module.exports = (html, css, js) => `<!DOCTYPE html>
   <body>
     ${html}
     <pre id="vscode_web_playground_console" class="hide"></pre>
+    ${libraryJs}
     <script type="text/javascript">
       window.console = {
         el: document.querySelector('#vscode_web_playground_console'),

@@ -1,7 +1,7 @@
 {
   "name": "vscode-web-playground",
   "description": "Fiddle around with web tech in VSCode!",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "A1rPun",
   "publisher": "A1rPun",
   "engines": {
@@ -9,6 +9,7 @@
   },
   "activationEvents": [
     "onCommand:extension.webplayground",
+    "onCommand:extension.webplayground.addlibrary",
     "onCommand:extension.webplayground.close",
     "onCommand:extension.webplayground.jsfiddle",
     "onCommand:extension.webplayground.codepen"
@@ -23,6 +24,10 @@
       {
         "command": "extension.webplayground.close",
         "title": "Web Playground - Close"
+      },
+      {
+        "command": "extension.webplayground.addlibrary",
+        "title": "Web Playground - Add Library"
       },
       {
         "command": "extension.webplayground.jsfiddle",
