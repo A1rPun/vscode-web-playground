@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 const editors = require('./../editors.js');
 const postUrl = require('./../postUrl.js');
-const { codePenUrl } = require('./../contants.js');
+const { codePenUrl } = require('./../constants.js');
 
 async function toCodePen() {
   const url = postUrl(codePenUrl, {
@@ -17,4 +17,4 @@ async function toCodePen() {
 }
 
 module.exports = () =>
-  vscode.commands.registerCommand('extension.webplaygroundcodepen', toCodePen);
+  vscode.commands.registerCommand('extension.webplayground.codepen', toCodePen);

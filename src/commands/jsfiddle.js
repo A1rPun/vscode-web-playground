@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 const editors = require('./../editors.js');
 const postUrl = require('./../postUrl.js');
-const { jsFiddleUrl } = require('./../contants.js');
+const { jsFiddleUrl } = require('./../constants.js');
 
 async function toJsFiddle() {
   const url = postUrl(jsFiddleUrl, {
@@ -16,6 +16,6 @@ async function toJsFiddle() {
 
 module.exports = () =>
   vscode.commands.registerCommand(
-    'extension.webplaygroundjsfiddle',
+    'extension.webplayground.jsfiddle',
     toJsFiddle
   );

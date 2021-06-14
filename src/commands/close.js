@@ -8,4 +8,4 @@ function close() {
 }
 
 module.exports = () =>
-  vscode.commands.registerCommand('extension.webplaygroundclose', close);
+  vscode.commands.registerCommand('extension.webplayground.close', close);
